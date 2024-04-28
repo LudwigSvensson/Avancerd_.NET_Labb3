@@ -10,9 +10,8 @@ namespace Labb3_Models_
         public string HobbyTitle { get; set; }
         public string HobbyDescription { get; set; }
         [JsonIgnore]
-        public int PersonID { get; set; }
-        [JsonIgnore]
-        public Person Person { get; set; }
-        public ICollection<Link> Links { get; set; }
+        public ICollection<Person> Persons { get; set; } = new List<Person>();
+      
+        public ICollection<Link> Links { get; set; }  = new List<Link>();
     }
 }

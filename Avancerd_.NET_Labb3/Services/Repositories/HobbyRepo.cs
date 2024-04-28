@@ -42,7 +42,7 @@ namespace Avancerd_.NET_Labb3.Services.Repositories
 
         public async Task<Hobby> GetSingle(int id)
         {
-            return await _appContext.Hobbies.Include(h => h.Links).Include(h => h.Person).
+            return await _appContext.Hobbies.Include(h => h.Links).Include(h => h.Persons).
                 FirstOrDefaultAsync(p => p.HobbyID == id);
         }
 
@@ -52,7 +52,7 @@ namespace Avancerd_.NET_Labb3.Services.Repositories
                 FirstOrDefaultAsync(h => h.HobbyID == entity.HobbyID);
             if (result != null)
             {
-                result.Person.PersonID = entity.PersonID;
+
                 result.HobbyTitle = entity.HobbyTitle;
                 result.HobbyDescription = entity.HobbyDescription;
 

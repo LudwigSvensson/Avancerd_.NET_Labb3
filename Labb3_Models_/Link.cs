@@ -10,8 +10,8 @@ namespace Labb3_Models_
         public int LinkID { get; set; }
         public string URL { get; set; }
         [JsonIgnore]
-        public int HobbyID { get; set; }
+        public ICollection<Hobby> Hobbies { get; set; } = new List<Hobby>();
         [JsonIgnore]
-        public Hobby Hobby { get; set; } 
+        public ICollection<Person> Persons { get; set;} = new List<Person>();
     }
 }

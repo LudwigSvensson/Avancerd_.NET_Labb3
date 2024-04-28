@@ -37,12 +37,19 @@ namespace Avancerd_.NET_Labb3.Services.Repositories
 
         public async Task<IEnumerable<Person>> GetAll()
         {
-            return await _appContext.Persons.ToListAsync(); //return await _appContext.Persons.Include(p => p.Hobbies).ThenInclude(p => p.Links).ToListAsync();
+            //return await _appContext.Persons.ToListAsync(); 
+            
+            var some = await _appContext.Persons
+                .Include(p => p.Hobbies)
+                .ThenInclude(p => p.Links)
+                .Include(p => p.Links)
+                .ToListAsync();
+            return some;
         }
 
         public async Task<Person> GetSingle(int id)
         {
-            return await _appContext.Persons.Include(p =>p.Hobbies).ThenInclude(p => p.Links).
+            return await _appContext.Persons.Include(p =>p.Hobbies).Include(p => p.Links).
                 FirstOrDefaultAsync(p => p.PersonID == id);
         }
 
@@ -52,8 +59,7 @@ namespace Avancerd_.NET_Labb3.Services.Repositories
                FirstOrDefaultAsync(p => p.PersonID == entity.PersonID);
             if (result != null)
             {
-                result.PhoneNumber = entity.PhoneNumber;
-
+                result = entity;
                 await _appContext.SaveChangesAsync();
                 return result;
             }

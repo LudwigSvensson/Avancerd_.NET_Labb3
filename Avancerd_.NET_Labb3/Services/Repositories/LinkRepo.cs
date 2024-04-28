@@ -36,7 +36,7 @@ namespace Avancerd_.NET_Labb3.Services.Repositories
 
         public async Task<IEnumerable<Link>> GetAll()
         {
-            return await _appContext.Links.Include(l => l.Hobby).ToListAsync();
+            return await _appContext.Links.Include(l => l.Hobbies).ToListAsync();
         }
 
         public async Task<Link> GetSingle(int id)
@@ -51,8 +51,8 @@ namespace Avancerd_.NET_Labb3.Services.Repositories
                FirstOrDefaultAsync(l => l.LinkID == entity.LinkID);
             if (result != null)
             {
-                result.URL = entity.URL;
-                
+                result = entity;
+
                 await _appContext.SaveChangesAsync();
                 return result;
             }

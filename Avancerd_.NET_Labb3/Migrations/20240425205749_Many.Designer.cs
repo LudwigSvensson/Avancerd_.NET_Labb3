@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Avancerd_.NET_Labb3.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240425182825_test")]
-    partial class test
+    [Migration("20240425205749_Many")]
+    partial class Many
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,36 @@ namespace Avancerd_.NET_Labb3.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("HobbyLink", b =>
+                {
+                    b.Property<int>("HobbiesHobbyID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LinksLinkID")
+                        .HasColumnType("int");
+
+                    b.HasKey("HobbiesHobbyID", "LinksLinkID");
+
+                    b.HasIndex("LinksLinkID");
+
+                    b.ToTable("HobbyLink");
+                });
+
+            modelBuilder.Entity("HobbyPerson", b =>
+                {
+                    b.Property<int>("HobbiesHobbyID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonsPersonID")
+                        .HasColumnType("int");
+
+                    b.HasKey("HobbiesHobbyID", "PersonsPersonID");
+
+                    b.HasIndex("PersonsPersonID");
+
+                    b.ToTable("HobbyPerson");
+                });
 
             modelBuilder.Entity("Labb3_Models_.Hobby", b =>
                 {
@@ -38,12 +68,7 @@ namespace Avancerd_.NET_Labb3.Migrations
                     b.Property<string>("HobbyTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonID")
-                        .HasColumnType("int");
-
                     b.HasKey("HobbyID");
-
-                    b.HasIndex("PersonID");
 
                     b.ToTable("Hobbies");
 
@@ -52,57 +77,49 @@ namespace Avancerd_.NET_Labb3.Migrations
                         {
                             HobbyID = 1,
                             HobbyDescription = "Skiing down the mountains... ",
-                            HobbyTitle = "Skiing",
-                            PersonID = 3
+                            HobbyTitle = "Skiing"
                         },
                         new
                         {
                             HobbyID = 2,
                             HobbyDescription = "Knitting shirts, mittens and hats ",
-                            HobbyTitle = "Knitting",
-                            PersonID = 3
+                            HobbyTitle = "Knitting"
                         },
                         new
                         {
                             HobbyID = 3,
                             HobbyDescription = "Surfing the waves like a real proffesional ",
-                            HobbyTitle = "Surfing",
-                            PersonID = 2
+                            HobbyTitle = "Surfing"
                         },
                         new
                         {
                             HobbyID = 4,
                             HobbyDescription = "Hacking computers since 1996 ",
-                            HobbyTitle = "Hacking",
-                            PersonID = 2
+                            HobbyTitle = "Hacking"
                         },
                         new
                         {
                             HobbyID = 5,
                             HobbyDescription = "Swimming like Phelps since 1996",
-                            HobbyTitle = "Swimming",
-                            PersonID = 1
+                            HobbyTitle = "Swimming"
                         },
                         new
                         {
                             HobbyID = 6,
                             HobbyDescription = "Throwing larger balls at smaller balls, really fun",
-                            HobbyTitle = "Boule",
-                            PersonID = 1
+                            HobbyTitle = "Boule"
                         },
                         new
                         {
                             HobbyID = 7,
                             HobbyDescription = "Gaming all kinds of games, FPS, MMORPG and RTS games",
-                            HobbyTitle = "Gaming",
-                            PersonID = 1
+                            HobbyTitle = "Gaming"
                         },
                         new
                         {
                             HobbyID = 8,
                             HobbyDescription = "Skating and punching people since 1996",
-                            HobbyTitle = "Hockey",
-                            PersonID = 2
+                            HobbyTitle = "Hockey"
                         });
                 });
 
@@ -114,15 +131,10 @@ namespace Avancerd_.NET_Labb3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LinkID"));
 
-                    b.Property<int>("HobbyID")
-                        .HasColumnType("int");
-
                     b.Property<string>("URL")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LinkID");
-
-                    b.HasIndex("HobbyID");
 
                     b.ToTable("Links");
 
@@ -130,79 +142,66 @@ namespace Avancerd_.NET_Labb3.Migrations
                         new
                         {
                             LinkID = 1,
-                            HobbyID = 1,
                             URL = "https://en.wikipedia.org/wiki/Skiing"
                         },
                         new
                         {
                             LinkID = 2,
-                            HobbyID = 1,
                             URL = "https://visitsweden.com/what-to-do/nature-outdoors/winter-activities/skiing-sweden/"
                         },
                         new
                         {
                             LinkID = 3,
-                            HobbyID = 2,
                             URL = "https://en.wikipedia.org/wiki/Knitting"
                         },
                         new
                         {
                             LinkID = 4,
-                            HobbyID = 2,
                             URL = "https://sheepandstitch.com/how-to-knit/"
                         },
                         new
                         {
                             LinkID = 5,
-                            HobbyID = 3,
                             URL = "https://sv.wikipedia.org/wiki/Surfing"
                         },
                         new
                         {
                             LinkID = 6,
-                            HobbyID = 3,
                             URL = "https://www.kilroy.se/reseblogg/8-fantastiska-surfdestinationer-over-hela-varlden"
                         },
                         new
                         {
                             LinkID = 7,
-                            HobbyID = 4,
                             URL = "https://www.ibm.com/topics/cyber-hacking"
                         },
                         new
                         {
                             LinkID = 8,
-                            HobbyID = 5,
                             URL = "https://en.wikipedia.org/wiki/Swimming_(sport)"
                         },
                         new
                         {
                             LinkID = 9,
-                            HobbyID = 5,
                             URL = "https://www.britannica.com/sports/swimming-sport"
                         },
                         new
                         {
                             LinkID = 10,
-                            HobbyID = 6,
                             URL = "https://sv.wikipedia.org/wiki/Boule"
                         },
                         new
                         {
                             LinkID = 11,
-                            HobbyID = 7,
                             URL = "https://sv.wikipedia.org/wiki/Gamer"
                         },
                         new
                         {
                             LinkID = 12,
-                            HobbyID = 8,
                             URL = "https://www.swehockey.se"
                         },
                         new
                         {
                             LinkID = 13,
-                            HobbyID = 8,
                             URL = "https://sv.wikipedia.org/wiki/Ishockey"
                         });
                 });
@@ -252,36 +251,64 @@ namespace Avancerd_.NET_Labb3.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Labb3_Models_.Hobby", b =>
+            modelBuilder.Entity("LinkPerson", b =>
                 {
-                    b.HasOne("Labb3_Models_.Person", "Person")
-                        .WithMany("Hobbies")
-                        .HasForeignKey("PersonID")
+                    b.Property<int>("LinksLinkID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonsPersonID")
+                        .HasColumnType("int");
+
+                    b.HasKey("LinksLinkID", "PersonsPersonID");
+
+                    b.HasIndex("PersonsPersonID");
+
+                    b.ToTable("LinkPerson");
+                });
+
+            modelBuilder.Entity("HobbyLink", b =>
+                {
+                    b.HasOne("Labb3_Models_.Hobby", null)
+                        .WithMany()
+                        .HasForeignKey("HobbiesHobbyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.HasOne("Labb3_Models_.Link", null)
+                        .WithMany()
+                        .HasForeignKey("LinksLinkID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Labb3_Models_.Link", b =>
+            modelBuilder.Entity("HobbyPerson", b =>
                 {
-                    b.HasOne("Labb3_Models_.Hobby", "Hobby")
-                        .WithMany("Links")
-                        .HasForeignKey("HobbyID")
+                    b.HasOne("Labb3_Models_.Hobby", null)
+                        .WithMany()
+                        .HasForeignKey("HobbiesHobbyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Hobby");
+                    b.HasOne("Labb3_Models_.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PersonsPersonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Labb3_Models_.Hobby", b =>
+            modelBuilder.Entity("LinkPerson", b =>
                 {
-                    b.Navigation("Links");
-                });
+                    b.HasOne("Labb3_Models_.Link", null)
+                        .WithMany()
+                        .HasForeignKey("LinksLinkID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("Labb3_Models_.Person", b =>
-                {
-                    b.Navigation("Hobbies");
+                    b.HasOne("Labb3_Models_.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PersonsPersonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

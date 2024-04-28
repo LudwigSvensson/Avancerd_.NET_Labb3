@@ -15,13 +15,14 @@ namespace Avancerd_.NET_Labb3.Controllers
         private Labb3Interface<Person> _person;
         private Labb3Interface<Link> _link;
         private Labb3Interface<Hobby> _hobby;
-        AppDbContext _appContext;
-        public MainController(Labb3Interface<Person> person, Labb3Interface<Hobby> hobby, Labb3Interface<Link> link, AppDbContext appContext)
+
+
+        public MainController(Labb3Interface<Person> person, Labb3Interface<Hobby> hobby, Labb3Interface<Link> link)
         {
             _hobby = hobby;
             _person = person;
             _link = link;
-            _appContext = appContext;
+
         }
 
         [HttpPost("{personId}/AddNewHobbyToPerson/{hobbyId}")]
@@ -43,13 +44,8 @@ namespace Avancerd_.NET_Labb3.Controllers
                     return NotFound("Hobby not found.");
                 }
 
-                if (person.Hobbies.Any(h => h.HobbyID == hobbyId))
-                {
-                    return Conflict("Person already has this hobby.");
-                }
                 person.Hobbies.Add(hobby);
-
-                await _appContext.SaveChangesAsync();
+                await _person.Update(person);
 
                 return Ok("Hobby added to person.");
             }
@@ -60,8 +56,8 @@ namespace Avancerd_.NET_Labb3.Controllers
             }
         }
 
-        [HttpPost("{personId}/hobbies/{hobbyId}/links")]
-        public async Task<IActionResult> AddLinkToHobby(int personId, int hobbyId,  Link newLink)
+        [HttpPost("{personId}/AddNewLinksToHobbies/{hobbyId}/links")]
+        public async Task<IActionResult> AddLinkToHobbyAndPerson(int personId, int hobbyId, Link newLink)
         {
             try
             {
@@ -78,17 +74,18 @@ namespace Avancerd_.NET_Labb3.Controllers
                 {
                     return NotFound("Hobby not found.");
                 }
+                newLink.Hobbies.Add(hobby);
+                newLink.Persons.Add(person);
 
-                newLink.HobbyID = hobbyId;
-                hobby.Links.Add(newLink);
+                await _link.Add(newLink);
 
-                await _appContext.SaveChangesAsync();
 
                 return Ok("Link added to hobby.");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error occurred: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                     $"Error to retrieve data from DB.....{ex.Message}");
             }
         }
     }

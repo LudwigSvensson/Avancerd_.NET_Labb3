@@ -36,17 +36,40 @@ namespace Avancerd_.NET_Labb3.Controllers
             }
         }
 
-        [HttpGet("{id:int}GetHobbies&LinksForSpecificPersonByPersonsID")]
-        public async Task<ActionResult<Hobby>> GetHobbiesForSpecificPerson(int id)
+        [HttpGet("{id:int}GetHobbiesForSpecificPersonByPersonsID")]
+        public async Task<ActionResult<List<Hobby>>> GetHobbiesForSpecificPerson(int id)
         {
             try
             {
                 var result = await _person.GetSingle(id);
+
                 if (result == null)
                 {
                     return NotFound();
                 }
-                return Ok(result);
+                
+                return Ok(result.Hobbies);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error to retrieve orderdata from DB.....{ex.Message}");
+            }
+        }
+
+        [HttpGet("{id:int}GetLinksForSpecificPersonByPersonsID")]
+        public async Task<ActionResult<List<Link>>> GetLinksorSpecificPerson(int id)
+        {
+            try
+            {
+                var result = await _person.GetSingle(id);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result.Links);
             }
             catch (Exception ex)
             {
