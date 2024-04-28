@@ -56,7 +56,7 @@ namespace Avancerd_.NET_Labb3.Controllers
             }
         }
 
-        [HttpPost("{personId}/AddNewLinksToHobbies/{hobbyId}/links")]
+        [HttpPost("{personId}/AddNewLinksToHobbies&Persons/{hobbyId}/links")]
         public async Task<IActionResult> AddLinkToHobbyAndPerson(int personId, int hobbyId, Link newLink)
         {
             try

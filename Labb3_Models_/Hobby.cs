@@ -11,7 +11,7 @@ namespace Labb3_Models_
         public string HobbyDescription { get; set; }
         [JsonIgnore]
         public ICollection<Person> Persons { get; set; } = new List<Person>();
-      
+        [JsonIgnore]
         public ICollection<Link> Links { get; set; }  = new List<Link>();
     }
 }
