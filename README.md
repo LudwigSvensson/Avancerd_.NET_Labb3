@@ -1,6 +1,7 @@
 # Avancerd_.NET_Labb3
+
 # /api/Person/GetAllPersons
-  GET. Ett anrop som hämtar alla personer i Person-tabellen-
+  GET. Ett anrop som hämtar alla personer i Person-tabellen
 # /api/Person/1GetHobbiesForSpecificPersonByPersonsID
   GET. Ett anrop som hämtar alla hobbies som en person har. Välj person genom att ange PersonID.
 # /api/Person/1GetLinksForSpecificPersonByPersonsID
